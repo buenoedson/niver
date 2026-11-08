@@ -1,5 +1,5 @@
 # Histórico de Sessão - Project Chronos (Arcade & Audiovisual Engine)
-# Última modificação: 07/11/2026
+# Última modificação: 08/11/2026
 
 ## Informações do Projeto
 - **Cliente/Local:** Usuário Corporativo (Anonimizado - Conformidade LGPD)
@@ -13,6 +13,7 @@
 
 ## Estrutura de Arquivos
 - `.gitignore`: Isolamento de segredos, dumps, logs e dependências.
+- `README.md`: Documentação técnica central do repositório, arquitetura, NFRs e guia de execução.
 - `logs/HISTORICO_SESSAO.md`: Rastreabilidade de atividades e decisões arquiteturais.
 - `docs/ESPECIFICACOES.md`: Contratos técnicos, requisitos não funcionais e modelagem de arquitetura.
 - `server.js`: Servidor HTTP nativo em Node.js com MIME handling e graceful shutdown.
@@ -33,6 +34,11 @@
 - **Decisões:** Adoção de Web Audio API procedural nativa para evitar dependências de arquivos de áudio estáticos (WAV/MP3); implementação de object pooling no sistema de partículas para evitar GC pauses e garantir 60 FPS estáveis.
 - **Bugs corrigidos:** N/A (Construção greenfield).
 
+### 08/11/2026: Documentação Técnica do Repositório (README.md)
+- **Ações:** Elaboração e publicação do arquivo `README.md` detalhando visão geral, arquitetura de software, mapeamento de controles, comandos do cyber-terminal, NFRs e conformidade de segurança.
+- **Decisões:** Estruturação orientada a onboarding de engenharia com tabelas de referência rápida para comandos e atalhos de hardware.
+- **Bugs corrigidos:** N/A.
+
 ### Tarefas Pendentes
 - [x] Criar e validar regras de segurança no `.gitignore`
 - [x] Elaborar especificações técnicas e governança documental
@@ -43,4 +49,5 @@
 - [x] Implementar interface de terminal interativo (`public/js/terminal/TerminalInterface.js`)
 - [x] Implementar estrutura DOM, estilos neon/CRT e bootloader (`public/index.html`, `public/css/style.css`, `public/js/main.js`)
 - [x] Validar inicialização local e entrega técnica
+- [x] Elaborar documentação completa de onboarding (`README.md`)
 
