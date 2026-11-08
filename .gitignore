@@ -1,0 +1,43 @@
+# Segurança e Segredos (Conformidade LGPD e Auditoria)
+.env*
+*.pem
+*.key
+*.pfx
+secrets.*
+credentials.*
+
+# Dados e Dumps Estruturados
+*.sql
+*.sqlite
+*.db
+*.bak
+*.dump
+
+# Exportações e Relatórios
+output/
+export/
+data/
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.pdf
+
+# Logs e Rastreabilidade
+*.log
+!logs/HISTORICO_SESSAO.md
+
+# Dependências e Runtimes
+node_modules/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema e IDEs
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
+

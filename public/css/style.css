@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Project Chronos - Cyberpunk HUD & Arcade Styling
+   ========================================================================== */
+
+:root {
+    --bg-primary: #05070f;
+    --bg-surface: rgba(10, 16, 30, 0.85);
+    --neon-cyan: #00f3ff;
+    --neon-pink: #ff007f;
+    --neon-green: #00ff66;
+    --neon-amber: #ffaa00;
+    --text-primary: #e0f8ff;
+    --text-dim: #5c7f99;
+    --border-color: rgba(0, 243, 255, 0.3);
+    --font-mono: 'Consolas', 'Courier New', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+/* Container Principal e Canvas */
+#app-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#viewport-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: block;
+}
+
+/* Efeito CRT e Scanlines */
+.scanlines-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.crt-vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    z-index: 6;
+}
+
+/* HUD Superior */
+#hud-header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(8px);
+}
+
+.brand-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.brand-title span {
+    color: var(--neon-pink);
+}
+
+.telemetry-group {
+    display: flex;
+    gap: 20px;
+}
+
+.metric-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.metric-label {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+}
+
+.metric-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+}
+
+/* Controles de Topo */
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.hud-btn {
+    background: rgba(0, 243, 255, 0.08);
+    border: 1px solid var(--border-color);
+    color: var(--neon-cyan);
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 2px;
+}
+
+.hud-btn:hover {
+    background: rgba(0, 243, 255, 0.2);
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.hud-btn.active {
+    background: var(--neon-cyan);
+    color: var(--bg-primary);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+}
+
+/* Terminal Cyberpunk Overlay */
+#terminal-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 440px;
+    max-width: calc(100vw - 40px);
+    height: 220px;
+    background: rgba(5, 10, 22, 0.92);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+#terminal-container.collapsed {
+    transform: translateY(calc(100% + 30px));
+    opacity: 0;
+    pointer-events: none;
+}
+
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(0, 243, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.7rem;
+    color: var(--neon-cyan);
+}
+
+.terminal-logs {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--text-primary);
+    scroll-behavior: smooth;
+}
+
+.terminal-logs::-webkit-scrollbar {
+    width: 4px;
+}
+
+.terminal-logs::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+.log-line {
+    margin-bottom: 2px;
+    word-break: break-all;
+}
+
+.log-line.system {
+    color: var(--text-dim);
+}
+
+.log-line.success {
+    color: var(--neon-green);
+}
+
+.log-line.warning {
+    color: var(--neon-amber);
+}
+
+.log-line.accent {
+    color: var(--neon-pink);
+}
+
+.terminal-input-row {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+.terminal-prompt {
+    color: var(--neon-pink);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-right: 8px;
+}
+
+#terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+/* Modal de Boas-vindas / Interação de Áudio */
+#audio-gate-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 4, 10, 0.88);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    transition: opacity 0.4s ease;
+}
+
+.modal-card {
+    background: rgba(10, 18, 36, 0.95);
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.3);
+    padding: 32px 40px;
+    text-align: center;
+    max-width: 520px;
+    border-radius: 4px;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.modal-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.controls-hint {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px dashed var(--border-color);
+    padding: 12px;
+    margin-bottom: 24px;
+    text-align: left;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.start-btn {
+    background: var(--neon-cyan);
+    color: var(--bg-primary);
+    border: none;
+    padding: 12px 32px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.9);
+}
+

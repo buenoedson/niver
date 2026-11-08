@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Chronos // Jubilee Protocol</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Canvas de Renderização Audiovisual -->
+        <canvas id="viewport-canvas"></canvas>
+
+        <!-- Filtros Visuais CRT e Scanlines -->
+        <div class="scanlines-overlay"></div>
+        <div class="crt-vignette"></div>
+
+        <!-- HUD Superior de Telemetria e Controles -->
+        <header id="hud-header">
+            <div class="brand-title">
+                PROJECT <span>CHRONOS</span> // JUBILEE
+            </div>
+
+            <div class="telemetry-group">
+                <div class="metric-box">
+                    <span class="metric-label">SCORE</span>
+                    <span id="val-score" class="metric-value">000000</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-label">COMBO</span>
+                    <span id="val-combo" class="metric-value">1x</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-label">FPS</span>
+                    <span id="val-fps" class="metric-value">60</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-label">PARTÍCULAS</span>
+                    <span id="val-particles" class="metric-value">0</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button id="btn-audio" class="hud-btn active">ÁUDIO: ON</button>
+                <button id="btn-terminal" class="hud-btn">TERMINAL</button>
+                <button id="btn-crt" class="hud-btn active">CRT</button>
+                <button id="btn-fullscreen" class="hud-btn">TELA CHEIA</button>
+            </div>
+        </header>
+
+        <!-- Terminal Cyberpunk Embutido -->
+        <div id="terminal-container" class="collapsed">
+            <div class="terminal-header">
+                <span>CONSOLA DO KERNEL // TELEMETRIA EM TEMPO REAL</span>
+                <span>ESC ou ~ para recolher</span>
+            </div>
+            <div id="terminal-logs" class="terminal-logs"></div>
+            <div class="terminal-input-row">
+                <span class="terminal-prompt">CHRONOS:/></span>
+                <input type="text" id="terminal-input" placeholder="digite um comando (ex: fireworks, warp, help)..." autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+
+        <!-- Modal de Inicialização e Ativação de Áudio -->
+        <div id="audio-gate-modal">
+            <div class="modal-card">
+                <h1 class="modal-title">PROJECT CHRONOS</h1>
+                <p class="modal-subtitle">ARCADE PROCEDURAL // PROTOCOLO DE ANIVERSÁRIO ATIVADO</p>
+
+                <div class="controls-hint">
+                    <strong>DIRETRIZES DE CONTROLE DO SISTEMA:</strong><br>
+                    • [W][A][S][D] ou [Setas] : Propulsão e navegação do interceptor<br>
+                    • [Mouse] : Mira angular e disparo contínuo de canhões de plasma<br>
+                    • [Espaço] : Disparo alternativo de pulso<br>
+                    • [~] ou [Botão Terminal] : Abrir/fechar console de comandos embutido<br>
+                    • [Milestone] : Atingir múltiplos de 1.000 pts dispara protocolo comemorativo
+                </div>
+
+                <button id="btn-start-app" class="start-btn">INICIALIZAR SISTEMA</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ponto de Entrada da Aplicação -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
